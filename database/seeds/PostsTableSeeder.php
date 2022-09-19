@@ -3,6 +3,7 @@
 use App\Models\Post;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 class PostsTableSeeder extends Seeder
 {
@@ -19,7 +20,7 @@ class PostsTableSeeder extends Seeder
             $newPost->author = $faker->userName();
             $newPost->post_date = $faker->dateTimeThisYear();
             $newPost->post_content = $faker->paragraphs(5, true);
-
+            $newPost->slug = Str::slug($newPost->title, '-') . '-' . ($i+1);
             $newPost->save();
         }
     }
