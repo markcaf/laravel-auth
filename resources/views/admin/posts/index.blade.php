@@ -18,13 +18,17 @@
                         @forelse ($posts as $post)
                             <tr>
                                 <th scope="row">
-                                    {{ $post->id }}
+                                    <a href="{{route('admin.posts.show', $post->slug)}}">
+                                        {{ $post->id }}
+                                    </a>
                                 </th>
                                 <td>
                                     {{ $post->author }}
                                 </td>
                                 <td>
-                                    {{ $post->title }}
+                                    <a href="{{route('admin.posts.show', $post->slug)}}">
+                                        {{ $post->title }}
+                                    </a>
                                 </td>
                                 <td>
                                     <a href="" class="btn btn-sm btn-success">
