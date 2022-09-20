@@ -5,9 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+
+    protected $validationRules = [
+        'title' => 'required|string|min:3|max:255|unique:posts,title',
+        'author' => 'required|string|min:3|max:255',
+        'post_date' => 'required|date',
+        'post_content' => 'required|min:3|string',
+        'post_image' => 'required|active_url',
+    ];
+
+
     /**
      * Display a listing of the resource.
      *
@@ -38,7 +50,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sentData = $request->validate($this->validationRules);
+        $post = new Post();
+        $lastPostId = Post::orderBy('id', 'desc')->first();
+        $sentData['slug'] = Str::slug($sentData['title'], '-'). '-' . ($lastPostId->id + 1);
+        
+        $post->create($sentData);
+
+        return redirect()->route('admin.posts.show', $sentData['slug']);
     }
 
     /**
