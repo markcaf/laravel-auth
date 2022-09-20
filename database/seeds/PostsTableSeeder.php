@@ -20,6 +20,7 @@ class PostsTableSeeder extends Seeder
             $newPost->author = $faker->userName();
             $newPost->post_date = $faker->dateTimeThisYear();
             $newPost->post_content = $faker->paragraphs(5, true);
+            $newPost->post_image = $faker->imageUrl();
             $newPost->slug = Str::slug($newPost->title, '-') . '-' . ($i+1);
             $newPost->save();
         }
