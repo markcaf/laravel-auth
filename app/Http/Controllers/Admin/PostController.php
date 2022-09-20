@@ -16,7 +16,6 @@ class PostController extends Controller
         'author' => 'required|string|min:3|max:255',
         'post_date' => 'required|date',
         'post_content' => 'required|min:3|string',
-        'post_image' => 'required|active_url',
     ];
 
 
@@ -78,9 +77,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->firstOrFail();
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
