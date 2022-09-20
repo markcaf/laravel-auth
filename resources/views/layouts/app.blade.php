@@ -35,9 +35,15 @@
                     <ul class="navbar-nav mr-auto">
                         @guest
                         @else
-                        <li>
+                        <li class="mr-3">
                             <a href="{{ route('admin.posts.index') }}">
                                 Posts
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="{{ route('admin.posts.create') }}">
+                                Create new post
                             </a>
                         </li>
                         @endguest
