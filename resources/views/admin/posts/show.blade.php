@@ -5,7 +5,7 @@
         <h2 class="my-3">{{$post->title}}</h2>
         <div class="row">
             <div class="col-4">
-                <img class="img-fluid" src="https://iltorinese.it/wp-content/themes/fox/images/placeholder.jpg" alt="{{$post->title}}">
+                <img class="img-fluid" src="{{$post->post_image}}" alt="{{$post->title}}">
             </div>
             <div class="col-8">
                 <p>{{$post->post_content}}</p>
