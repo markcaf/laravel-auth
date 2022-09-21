@@ -57,7 +57,7 @@ class PostController extends Controller
         
         $post->create($sentData);
 
-        return redirect()->route('admin.posts.show', $sentData['slug']);
+        return redirect()->route('admin.posts.show', $sentData['slug'])->with('created', $sentData['title']);
     }
 
     /**
@@ -98,7 +98,7 @@ class PostController extends Controller
         $sentData['slug'] = Str::slug($sentData['title'], '-'). '-' . ($post->id);
         $post->update($sentData);
 
-        return redirect()->route('admin.posts.show', $post->slug);
+        return redirect()->route('admin.posts.show', $post->slug)->with('edited', $sentData['title']);
     }
 
     /**
