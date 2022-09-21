@@ -12,10 +12,11 @@ class PostController extends Controller
 {
 
     protected $validationRules = [
-        'title' => 'required|string|min:3|max:255|unique:posts,title',
+        'title' => 'required|string|min:3|max:255',
         'author' => 'required|string|min:3|max:255',
         'post_date' => 'required|date',
         'post_content' => 'required|min:3|string',
+        'post_image' => 'active_url'
     ];
 
 
@@ -90,9 +91,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $sentData = $request->validate($this->validationRules);
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $sentData['slug'] = Str::slug($sentData['title'], '-'). '-' . ($post->id);
+        $post->update($sentData);
+
+        return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
