@@ -3,7 +3,13 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
+                @if ( session('deleted'))
+                    <div class="alert alert-warning">
+                        "{{ session('deleted') }}" has been successfully deleted.
+                    </div>
+                @endif
+                
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -40,9 +46,12 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-sm btn-danger">
-                                        Delete
-                                    </a>
+                                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="form-comic-delete"
+                                        data-comic-name="{{ $post->title }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty
