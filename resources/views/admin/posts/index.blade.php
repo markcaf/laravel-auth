@@ -9,7 +9,7 @@
                         "{{ session('deleted') }}" has been successfully deleted.
                     </div>
                 @endif
-                
+
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -46,8 +46,8 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="form-comic-delete"
-                                        data-comic-name="{{ $post->title }}">
+                                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="form-post-delete"
+                                        data-post-name="{{ $post->title }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -63,3 +63,5 @@
         </div>
     </div>
 @endsection
+
+
