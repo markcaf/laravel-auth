@@ -4,17 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
 
     protected $validationRules = [
         'title' => 'required|string|min:3|max:255',
-        'author' => 'required|string|min:3|max:255',
-        'post_date' => 'required|date',
         'post_content' => 'required|min:3|string',
         'post_image' => 'active_url'
     ];
@@ -51,6 +50,9 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $sentData = $request->validate($this->validationRules);
+        $sentData['author'] = Auth::user()->name;
+        date_default_timezone_set('Europe/Rome');
+        $sentData['post_date'] = new DateTime();
         $post = new Post();
         $lastPostId = Post::orderBy('id', 'desc')->first();
         $sentData['slug'] = Str::slug($sentData['title'], '-'). '-' . ($lastPostId->id + 1);

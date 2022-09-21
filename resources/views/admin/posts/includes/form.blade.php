@@ -11,31 +11,7 @@
     @enderror
 </div>
 
-<div class="mb-3">
-    <label for="author" class="form-label">Author</label>
-    <input name="author" value="{{ old('author', $post->author) }}" type="text" class="form-control" id="author"
-        aria-describedby="authorHelp" required>
-    <div id="authorHelp" class="form-text">Insert here the post's author.</div>
 
-    @error('author')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
-
-<div class="mb-3">
-    <label for="post_date" class="form-label">Post Date</label>
-    <input name="post_date" value="{{ old('post_date', $post->post_date) }}" type="date" class="form-control"
-        id="post_date" aria-describedby="post_dateHelp" required>
-    <div id="post_dateHelp" class="form-text">Insert here your post's date.</div>
-
-    @error('post_date')
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
 
 <div class="mb-3">
     <label for="post_content" class="form-label">Post content</label>
