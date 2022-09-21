@@ -14,31 +14,45 @@
             </div>
         @endif
 
-        <h2 class="my-3">{{ $post->title }}</h2>
-
         <div class="row">
             <div class="col-4">
-                <img class="img-fluid" src="{{ $post->post_image }}" alt="{{ $post->title }}">
-            </div>
-            <div class="col-8">
-                <p>{{ $post->post_content }}</p>
-                <p><strong>Author:</strong> {{ $post->author }}</p>
-                <p><strong>Post Date:</strong> {{ $post->post_date }}</p>
-            </div>
-            <div class="col-12 mt-5 d-flex justify-content-center align-items-center">
-                <div>
-                    <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn btn-success mx-2">
-                        Edit
-                    </a>
+                <div class="card">
+                    <img class="card-img-top" src="{{ $post->post_image }}" alt="Card image cap">
+                    <div class="card-body">
+                      <p class="card-text text-center">Featured image: <br><em>{{ $post->title }}</em></p>
+                    </div>
                 </div>
 
+                <div class="mt-3">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item"><strong>Author:</strong> {{ $post->author }}</li>
+                          <li class="list-group-item"><strong>Post Date:</strong> {{ $post->post_date }}</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-5 d-flex justify-content-center align-items-center">
+                    <div>
+                        <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn btn-success mx-2">
+                            Edit
+                        </a>
+                    </div>
+    
+                    <div>
+                        <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="form-post-delete"
+                            data-post-name="{{ $post->title }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn btn-danger mx-2">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 d-flex flex-column justify-content-between">
                 <div>
-                    <form action="{{ route('admin.posts.destroy', $post->id) }}" method="POST" class="form-post-delete"
-                        data-post-name="{{ $post->title }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn btn-danger mx-2">Delete</button>
-                    </form>
+                    <h2 class="my-3">{{ $post->title }}</h2>
+                    <p>{{ $post->post_content }}</p>
                 </div>
             </div>
         </div>
